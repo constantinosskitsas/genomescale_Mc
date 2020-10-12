@@ -31,9 +31,6 @@ class suffixTree():
             if d < u.depth:
                 u = self.create_node(text, u, d)
             self.create_leaf(text, i, u, d)
-            #if not u.get_suffix_link():
-               # self.compute_slink(text, u)
-            #u = u.get_suffix_link()
             if u.suffix_link is None:
                 self.compute_slink(text,u)
             u=u.suffix_link
@@ -56,13 +53,11 @@ class suffixTree():
         w.pos = i
         w.depth = len(x) - i
         u.transition_links[x[i + d]] = w
-        # u.add_transition_link(w, x[i + d])
         w.parent = u
         return w
 
     def compute_slink(self, x, u):
         d = u.depth
-        #v = u.parent.get_suffix_link()
         v = u.parent.suffix_link
         while v.depth < d - 1:
             v = v.transition_links[x[u.pos + v.depth + 1]]
